@@ -7,17 +7,27 @@
 // Wins and Losses trigger increases on the scoreboard.
 // Reset the game after a win or lose without a page refresh.
 
+// VARIABLE ORDER MATTERS!!!!!!!!!! CANNOT CALL A VARIABLE IN A FUNCTION IF IT HAS NOT YET BEEN DECLARED!
 
 // Letter Bank
 var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-var wrongLetters = [];
-	// wrongLetters.push(computerPick); //This did not work either.
+// Wrong Letter Bank
+var wrongLetters = ""; // Defines empty string to display wrong letters
+
 
 var wins = 0;
 var losses = 0;
 var guesses = 9;
-// var wrongLetters = blank array that gets filled in
+var computerPick = "";  //empty quotes to indicate a string value
+console.log(computerPick);
+// Use function gameSetUp so you don't have to repeat the individual variables inside the game loop.
+function gameSetUp() {
+	guesses = 9;
+	computerPick = letterBank[Math.floor(Math.random()*letterBank.length)];
+	console.log(computerPick);
+	wrongLetters = "";
+}
 
 // Tried to use this to reset the game with a confirm dialog.  Didn't work.
 	// var playAgain = confirm("Wanna Play Again");
@@ -26,13 +36,14 @@ var guesses = 9;
 		// }
 
 
-// Computer picks a random letter
-	var computerPick = letterBank[Math.floor(Math.random()*letterBank.length)];
+// Computer picks a random letter.  Moved up to function gameSetUp.
+	// var computerPick = letterBank[Math.floor(Math.random()*letterBank.length)];
 
-		// Checked if working in Console --- yes, computer is picking random letter
-		console.log(computerPick);
+		// Checked if working in Console --- yes, computer is picking random letter.  Moved up to function gameSetUp,
+		// console.log(computerPick);
 
 // Register a user pick and Game Begins
+	gameSetUp();
 	document.onkeyup = function() {
 		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
@@ -44,12 +55,22 @@ var guesses = 9;
 			//Checked in Console --- yes, the alert is appearing if you pick the same letter and wins increase
 			wins++;
 			confirm("YOU WIN! Wanna Play Again?"); //How do I make this reset the computer pick, number of guesses, and Used Letter Bank?
-		} else if ((userGuess)!==(computerPick)) {
+			gameSetUp();
+			// guesses=9;
+			// computerPick = letterBank[Math.floor(Math.random()*letterBank.length)];
+			// console.log(computerPick);
+		} else {
 			guesses--;
-		} else { 
-			guesses==0;
+			wrongLetters=wrongLetters + userGuess +"  ";
+			console.log("wrongLetters ", wrongLetters);  // Shows the string "wrongletters" + the userGuess
+		} 
+
+		if (guesses==0) {
+			losses++;
 			confirm("You Lose. Wanna Play Again");  // This does not work. The guesses continue into the negatives.  I'm so confused.
+			gameSetUp();
 		}
+		
 
 		// if (guesses===0) {
 		// 	document.querySelector("#guesses").reset();
@@ -61,7 +82,7 @@ var guesses = 9;
 		"<p>Losses: " + losses + "</p>" +
 		"<p>Guesses Left: " + guesses + "</p>" +
 		"<p>Your Guesses So Far: " + wrongLetters + "</p>";
-		// Not sure how to make wrongLetters actually work yet.
+
 
 		document.querySelector("#game").innerHTML = html;
 	}
