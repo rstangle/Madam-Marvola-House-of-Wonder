@@ -14,13 +14,15 @@ var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m
 
 // Wrong Letter Bank
 var wrongLetters = ""; // Defines empty string to display wrong letters
-
+var badLetter = [];
+var badLetterTest;
 
 var wins = 0;
 var losses = 0;
 var guesses = 9;
 var computerPick = "";  //empty quotes to indicate a string value
 console.log(computerPick);
+
 // Use function gameSetUp so you don't have to repeat the individual variables inside the game loop.
 function gameSetUp() {
 	guesses = 9;
@@ -35,11 +37,12 @@ function gameSetUp() {
 		// 	document.getElementById("#guesses").reset();
 		// }
 
-
-// Computer picks a random letter.  Moved up to function gameSetUp.
+		// Moved up to function gameSetUp.
+		// Computer picks a random letter.
 	// var computerPick = letterBank[Math.floor(Math.random()*letterBank.length)];
 
-		// Checked if working in Console --- yes, computer is picking random letter.  Moved up to function gameSetUp,
+		// Moved up to function gameSetUp.
+		// Checked if working in Console --- yes, computer is picking random letter.  ,
 		// console.log(computerPick);
 
 // Register a user pick and Game Begins
@@ -47,35 +50,37 @@ function gameSetUp() {
 	document.onkeyup = function() {
 		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
+		badLetterTest = badLetter.indexOf(userGuess);	
 		 // Checked if working in Console --- yes, it is capturing key strokes
 		console.log(userGuess);
+		console.log(badLetterTest);
 
 		// Guessing Portion and Main Game Function
-		if ((userGuess)===(computerPick)) {
+		if ((userGuess) === (computerPick)) {
 			//Checked in Console --- yes, the alert is appearing if you pick the same letter and wins increase
 			wins++;
-			confirm("YOU WIN! Wanna Play Again?"); //How do I make this reset the computer pick, number of guesses, and Used Letter Bank?
+			confirm("YOU WIN! Wanna Play Again?"); 
 			gameSetUp();
+			// Had the below as standalone variables inside the 
 			// guesses=9;
 			// computerPick = letterBank[Math.floor(Math.random()*letterBank.length)];
 			// console.log(computerPick);
-		} else {
+		} 
+		else if (badLetterTest == -1) {
 			guesses--;
-			wrongLetters=wrongLetters + userGuess +"  ";
+			wrongLetters = wrongLetters + userGuess +"  ";
 			console.log("wrongLetters ", wrongLetters);  // Shows the string "wrongletters" + the userGuess
+			badLetter.push(userGuess);
+			console.log(badLetter);
 		} 
 
-		if (guesses==0) {
+		if (guesses == 0) {
 			losses++;
-			confirm("You Lose. Wanna Play Again");  // This does not work. The guesses continue into the negatives.  I'm so confused.
+			confirm("You Lose. Wanna Play Again");
 			gameSetUp();
 		}
 		
 
-		// if (guesses===0) {
-		// 	document.querySelector("#guesses").reset();
-		// }  // This didn't work either.
-	
 
 		var html = "<h1>Guess What Letter I'm Thinking Of</h1>" +
 		"<p>Wins: " + wins + "</p>" +
