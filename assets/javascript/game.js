@@ -13,9 +13,9 @@
 var letterBank = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 // Wrong Letter Bank
-var wrongLetters = ""; // Defines empty string to display wrong letters
-var badLetter = [];
-var badLetterTest;
+var wrongLetters = ""; // Defines empty string to display wrong letters.
+var badLetter = []; // Makes an empty array for the bad letters to be pushed to.
+var badLetterTest; // The test to see if the user guess is already in the bad letter array.
 
 var wins = 0;
 var losses = 0;
@@ -87,7 +87,7 @@ function gameSetUp() {
 		
 
 
-		var html = "<h1>Guess What Letter I'm Thinking Of:</h1>" +
+		var html = "<h1>Can You Guess What Letter I'm Thinking Of?</h1>" +
 		"<hr>" +
 		"<p>Wins: " + wins + "</p>" +
 		"<p>Losses: " + losses + "</p>" +
