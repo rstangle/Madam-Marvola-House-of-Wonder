@@ -29,6 +29,7 @@ function gameSetUp() {
 	computerPick = letterBank[Math.floor(Math.random()*letterBank.length)];
 	console.log(computerPick);
 	wrongLetters = "";
+	badLetter = [];
 }
 
 // Tried to use this to reset the game with a confirm dialog.  Didn't work.
@@ -50,8 +51,8 @@ function gameSetUp() {
 	document.onkeyup = function() {
 		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
-		badLetterTest = badLetter.indexOf(userGuess);	
-		 // Checked if working in Console --- yes, it is capturing key strokes
+		badLetterTest = badLetter.indexOf(userGuess);	// Gives a poistive or negative number
+
 		console.log(userGuess);
 		console.log(badLetterTest);
 
@@ -59,7 +60,7 @@ function gameSetUp() {
 		if ((userGuess) === (computerPick)) {
 			//Checked in Console --- yes, the alert is appearing if you pick the same letter and wins increase
 			wins++;
-			confirm("YOU WIN! Wanna Play Again?"); 
+			confirm("YOU WIN! The computer picked '" + computerPick + "'. Wanna Play Again?"); 
 			gameSetUp();
 			// Had the below as standalone variables inside the 
 			// guesses=9;
@@ -74,15 +75,20 @@ function gameSetUp() {
 			console.log(badLetter);
 		} 
 
+		if (guesses == 1) {
+			alert("You only have one guess left.");
+		}
+
 		if (guesses == 0) {
 			losses++;
-			confirm("You Lose. Wanna Play Again");
+			confirm("You Lose. The computer picked '" + computerPick + "'. Wanna Play Again");
 			gameSetUp();
 		}
 		
 
 
-		var html = "<h1>Guess What Letter I'm Thinking Of</h1>" +
+		var html = "<h1>Guess What Letter I'm Thinking Of:</h1>" +
+		"<hr>" +
 		"<p>Wins: " + wins + "</p>" +
 		"<p>Losses: " + losses + "</p>" +
 		"<p>Guesses Left: " + guesses + "</p>" +
