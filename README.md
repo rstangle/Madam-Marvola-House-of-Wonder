@@ -1,7 +1,7 @@
 # Madam Marvola's House of Wonders
 
 #### Copyright 2017 Ryan Stangle
-#### https://rstangle.github.io/Marvel-Puzzle-Challenge/
+#### https://rstangle.github.io/Madam-Marvola-House-of-Wonder/
 
 
 -----------------------------------------
